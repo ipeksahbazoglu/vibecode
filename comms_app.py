@@ -3,6 +3,8 @@ from textblob import TextBlob
 import string
 import random
 
+from inclusivity_score import calculate_inclusivity_score
+
 # Define keyword dictionary
 keyword_dict = {
     "Engineering": ["deployment", "architecture", "optimization", "automation", "code", "build", "test", "pipeline", "security", "API"],
@@ -67,19 +69,6 @@ input_text = st.text_area("Enter a message or social media post:", height=200, k
 def count_keyword_hits(text, keyword_list):
     return sum(1 for kw in keyword_list if kw.lower() in text.lower())
 
-def calculate_inclusivity_score(text):
-    sentences = text.split('.')
-    sentence_lengths = [len(sentence.split()) for sentence in sentences if sentence.strip()]
-    avg_sentence_length = sum(sentence_lengths) / len(sentence_lengths) if sentence_lengths else 0
-    word_count = len(text.split())
-    long_words = [word for word in text.split() if len(word.strip(string.punctuation)) > 12]
-    long_word_ratio = len(long_words) / word_count if word_count else 0
-
-    score = 0
-    score += 10 if avg_sentence_length <= 12 else 7 if avg_sentence_length <= 17 else 4 if avg_sentence_length <= 25 else 1
-    score += 5 if long_word_ratio < 0.05 else 3 if long_word_ratio < 0.10 else 1
-    score += 10 if word_count <= 150 else 7 if word_count <= 250 else 4 if word_count <= 350 else 1
-    return score
 
 def calculate_score(base, keyword_hits):
     bonus = min(keyword_hits * 2, 20)
