@@ -9,7 +9,7 @@ from inclusivity_score import calculate_inclusivity_score
 keyword_dict = {
     "Engineering": ["deployment", "architecture", "optimization", "automation", "code", "build", "test", "pipeline", "security", "API"],
     "Finance": ["budget", "forecast", "expense", "revenue", "invoice", "payment", "financial", "report", "audit", "investment"],
-    "Commercial": ["sales", "campaign", "market", "conversion", "client", "lead", "promotion", "deal", "growth", "CRM"],
+    "Commercial": ["sales", "campaign", "market", "conversion", "client", "lead", "promotion", "deal", "growth", "CRM", 'commercial'],
     "Design": ["UX", "UI", "wireframe", "prototype", "aesthetic", "interface", "branding", "layout", "graphic", "logo"],
     "Manufacturing": ["assembly", "production", "machine", "process", "plant", "schedule", "output", "tooling", "maintenance", "repair"],
     "HR": ["recruitment", "onboarding", "employee", "benefits", "policy", "training", "engagement", "feedback", "leave", "performance"],
@@ -81,7 +81,7 @@ def generate_scores(targets):
     for target in targets:
         keyword_hits = count_keyword_hits(input_text, keyword_dict.get(target, []))
         sentiment_score = sentiment_score = round((base_sentiment + 1) * 50)
-        engagement_score = min(100, keyword_hits * 5)
+        engagement_score = min(100, keyword_hits * 10)
         inclusivity_score = calculate_inclusivity_score(input_text)
         results[target] = {
             "Sentiment": sentiment_score,

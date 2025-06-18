@@ -13,9 +13,9 @@ def calculate_inclusivity_score(text):
     if flesch_score >= 50:
         readability_score = 10
     elif flesch_score >= 20:
-        readability_score = 7
-    elif flesch_score >= 10:
         readability_score = 5
+    elif flesch_score >= 10:
+        readability_score = 3
     else:
         readability_score = 1
 
@@ -33,10 +33,10 @@ def calculate_inclusivity_score(text):
     words_in_text = [word.strip(string.punctuation).lower() for word in text.split()]
     uncommon_words = [word for word in words_in_text if word and word not in common_words]
     jargon_ratio = len(uncommon_words) / max(len(words_in_text), 1)
-    if jargon_ratio < 0.50:
+    if jargon_ratio < 0.40:
         jargon_score = 5
     elif jargon_ratio < 0.20:
-        jargon_score = 3
+        jargon_score = 2
     else:
         jargon_score = 1
 
